@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600) // Allow from Origins other than localhost for Swagger to work
+@CrossOrigin(origins = "*") // Allow from Origins other than localhost for Swagger to work
 @RequestMapping("/api")
 //@Service
 public class PlanningPermissionController {
@@ -25,7 +25,7 @@ public class PlanningPermissionController {
      *
      * @return List<PlanningPermission>
      */
-    @RequestMapping(value= {"/allPlanningPermissions", "/allPlanningPermissions/"},  method= RequestMethod.GET)
+    @RequestMapping(value= {"/planningpermissions", "/planningpermissions/"},  method= RequestMethod.GET)
     List<PlanningPermission> getAllHouseApplicationForApplications(){
         return planningPermissionRepository.findAll();
     }
@@ -35,7 +35,7 @@ public class PlanningPermissionController {
      *
      * @return Optional<PlanningPermission>
      */
-    @RequestMapping(value="/planningPermission/{referenceId}", method= RequestMethod.GET)
+    @RequestMapping(value="/planningpermissions/{referenceId}", method= RequestMethod.GET)
     Optional<PlanningPermission> getHouseApplication(@PathVariable("referenceId") int referenceId){
         return planningPermissionRepository.findById(referenceId);
     }
@@ -48,7 +48,7 @@ public class PlanningPermissionController {
      * applicationTypeId = 1 - commercial planning permission
      * @return List<PlanningPermission>
      */
-    @RequestMapping(value= {"/planningPermissions", "/planningPermissions/"},  method= RequestMethod.GET)
+    @RequestMapping(value= {"/planningpermissions/types", "/planningpermissions/"},  method= RequestMethod.GET)
     List<PlanningPermission> getHouseApplicationForApplicationType(@RequestParam("applicationTypeId") int applicationTypeId){
         return planningPermissionRepository.findByApplicationTypeId(applicationTypeId);
     }
@@ -59,7 +59,7 @@ public class PlanningPermissionController {
      * @param planningPermission - details of the new application
      * @return ResponseEntity<PlanningPermission>
      */
-    @RequestMapping(value= {"/planningPermission", "/planningPermission/"}, method= RequestMethod.POST)
+    @RequestMapping(value= {"/planningpermissions", "/planningpermissions/"}, method= RequestMethod.POST)
     ResponseEntity<PlanningPermission>insertHousingApplication(@RequestBody PlanningPermission planningPermission){
         PlanningPermission savedPlanningPermission = planningPermissionRepository.save(planningPermission);
         return new ResponseEntity<PlanningPermission>(savedPlanningPermission, HttpStatus.OK);
@@ -73,7 +73,7 @@ public class PlanningPermissionController {
      *
      * @return ResponseEntity<PlanningPermission>
      */
-    @RequestMapping(value= "/planningPermission/{referenceId}", method= RequestMethod.PUT)
+    @RequestMapping(value= "/planningpermissions/{referenceId}", method= RequestMethod.PUT)
     PlanningPermission updateHousingApplication(@PathVariable("referenceId") int referenceId, @RequestBody PlanningPermission planningPermission){
         Optional<PlanningPermission> optionalPlanningPermission = planningPermissionRepository.findById(referenceId);
         PlanningPermission existingPlanningPermission = optionalPlanningPermission.get();
@@ -94,7 +94,7 @@ public class PlanningPermissionController {
      * @param  referenceId - the referenceId of the application to delete
      * @return String
      */
-    @RequestMapping(value= "/planningPermission/{referenceId}", method= RequestMethod.DELETE)
+    @RequestMapping(value= "/planningpermissions/{referenceId}", method= RequestMethod.DELETE)
     String deleteHousingApplication(@PathVariable("referenceId") int referenceId){
         Optional<PlanningPermission> optionalPlanningPermission = planningPermissionRepository.findById(referenceId);
         PlanningPermission existingPlanningPermission = optionalPlanningPermission.get();
