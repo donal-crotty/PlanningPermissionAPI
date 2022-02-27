@@ -6,8 +6,8 @@ info:
 host: "localhost:8085"
 Access-Control-Allow-Origin: "localhost:8085"
 Vary: Origin
-Access-Control-Allow-Credentials: true
-basePath: "/api"
+#Access-Control-Allow-Credentials: true
+basePath: "/api/residential"
 tags:
   - name: "planningpermissions"
     description: "Manage all your Planning Permission applications"
@@ -34,37 +34,36 @@ paths:
       summary: "Adds a new Planning Permission application to the system"
       description: "This allows the user to upload a new Planning Permission application to the system."
       parameters:
-        - in: body
-          name: planningPermission
-          description: The Planning Permission application updated properties.
+        - in: "body"
+          name: "planningPermission"
+          description: "The Planning Permission application updated properties."
           schema:
-            type: object
+            type: "object"
             required:
-              - referenceId
-              - applicantFirstName
-              - applicantLastName
-              - houseArea
-              - applicationStatus
-              - applicationTypeId
+              - "applicantFirstName"
+              - "applicantLastName"
+              - "houseArea"
+              - "applicationStatus"
+              - "oneOffHousingId"
             properties:
               applicantFirstName:
-                type: string
+                type: "string"
               applicantLastName:
-                type: string
+                type: "string"
               houseArea:
-                type: number
-                format: double
+                type: "number"
+                format: "double"
               applicationStatus:
-                type: string
-              applicationTypeId:
-                type: integer
+                type: "string"
+              oneOffHousingId:
+                type: "integer"
             example:
               referenceId: 5
               applicantFirstName: "Joe D."
               applicantLastName: "Bloggs"
               houseArea: 234.5
               applicationStatus: "New Application"
-              applicationTypeId: 1
+              oneOffHousingId: 1
       produces:
         - "application/json"
       responses:
@@ -101,36 +100,36 @@ paths:
       consumes:
         - "application/json"
       parameters:
-        - in: path
-          name: referenceId
-          type: integer
-          description: The referenceId of the Planning Permission application to be updated.
+        - in: "path"
+          name: "referenceId"
+          type: "integer"
+          description: "The referenceId of the Planning Permission application to be updated."
           required: true
-        - in: body
-          name: planningPermission
-          description: The Planning Permission application updated properties.
+        - in: "body"
+          name: "planningPermission"
+          description: "The Planning Permission application updated properties."
           schema:
-            type: object
+            type: "object"
             required:
-              - referenceId
+              - "referenceId"
             properties:
               applicantFirstName:
-                type: string
+                type: "string"
               applicantLastName:
-                type: string
+                type: "string"
               houseArea:
-                type: number
-                format: double
+                type: "number"
+                format: "double"
               applicationStatus:
-                type: string
-              applicationTypeId:
-                type: integer
+                type: "string"
+              oneOffHousingId:
+                type: "integer"
             example:
               applicantFirstName: "Joe D."
               applicantLastName: "Bloggs"
               houseArea: 234.5
               applicationStatus: "Further Information"
-              applicationTypeId: 0
+              oneOffHousingId: 0
 
       produces:
         - "application/json"
@@ -155,20 +154,22 @@ paths:
           required: true
           type: "integer"
       responses:
+        "200":
+          description: "Planning Permission application referenceId: {referenceId} has been deleted"
         "400":
           description: "Invalid referenceId supplied"
         "404":
           description: "application not found"
 
-  /planningpermissions/types?applicationTypeId={applicationTypeId}:
+  /planningpermissions/types?oneOffHousingId={oneOffHousingId}:
     get:
       tags:
         - "planningpermissions"
       summary: "Returns a list of Planning Permission applications"
-      description: "This returns list of Planning Permission applications matching the ApplicationTypeId. Use 0 for residential applications and 1 for commericial applications."
+      description: "This returns list of Planning Permission applications matching the oneOffHousingId. Use 0 for residential applications and 1 for commercial applications."
       parameters:
         - in: "path"
-          name: "applicationTypeId"
+          name: "oneOffHousingId"
           schema:
             type: "integer"
           required: true

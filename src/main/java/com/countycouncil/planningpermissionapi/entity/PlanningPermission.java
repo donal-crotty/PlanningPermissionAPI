@@ -22,19 +22,19 @@ public class PlanningPermission implements Serializable {
     private String applicationStatus;
 
     @Column(nullable = false)
-    private int applicationTypeId; // Residential = 0; Commercial= 1
+    private int oneOffHousingId; // Rural = 0; Urban = 1
 
     public PlanningPermission(){
 
     }
 
-    public PlanningPermission(int referenceId, String applicantFirstName, String applicantLastName, double houseArea, String applicationStatus, int applicationTypeId) {
+    public PlanningPermission(int referenceId, String applicantFirstName, String applicantLastName, double houseArea, String applicationStatus, int oneOffHousingId) {
         this.referenceId = referenceId;
         this.applicantFirstName = applicantFirstName;
         this.applicantLastName = applicantLastName;
         this.houseArea = houseArea;
         this.applicationStatus = applicationStatus;
-        this.applicationTypeId = applicationTypeId;
+        this.oneOffHousingId = oneOffHousingId;
     }
 
     public int getReferenceId() {
@@ -73,12 +73,12 @@ public class PlanningPermission implements Serializable {
         this.applicationStatus = applicationStatus;
     }
 
-    public int getApplicationTypeId() {
-        return applicationTypeId;
+    public int getOneOffHousingId() {
+        return oneOffHousingId;
     }
 
-    public void setApplicationTypeId(int applicationTypeId) {
-        this.applicationTypeId = applicationTypeId;
+    public void setOneOffHousingId(int oneOffHousingId) {
+        this.oneOffHousingId = oneOffHousingId;
     }
 }
 

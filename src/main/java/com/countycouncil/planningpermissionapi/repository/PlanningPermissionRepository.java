@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface PlanningPermissionRepository extends CrudRepository<PlanningPermission, Integer> {
-    List<PlanningPermission> findByApplicationTypeId(int applicationTypeId);
+    List<PlanningPermission> findByOneOffHousingId(int oneOffHousingId);
 
     List<PlanningPermission> findAll();
 }

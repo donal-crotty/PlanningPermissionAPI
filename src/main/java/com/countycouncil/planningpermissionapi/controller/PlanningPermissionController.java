@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*") // Allow from Origins other than localhost for Swagger to work
-@RequestMapping("/api")
+@RequestMapping("/api/residential")
 //@Service
 public class PlanningPermissionController {
 
@@ -41,16 +41,16 @@ public class PlanningPermissionController {
     }
 
     /**
-     * Retrieve all planning permission applications with a specific ApplicationTypeId
+     * Retrieve all planning permission applications with a specific oneOffHousingId
      *
-     * @param applicationTypeId - id defining the type of planning permission application
+     * @param oneOffHousingId - id defining the type of planning permission application
      * applicationTypeId = 0 - residential planning permission
      * applicationTypeId = 1 - commercial planning permission
      * @return List<PlanningPermission>
      */
     @RequestMapping(value= {"/planningpermissions/types", "/planningpermissions/"},  method= RequestMethod.GET)
-    List<PlanningPermission> getHouseApplicationForApplicationType(@RequestParam("applicationTypeId") int applicationTypeId){
-        return planningPermissionRepository.findByApplicationTypeId(applicationTypeId);
+    List<PlanningPermission> getHouseApplicationForApplicationType(@RequestParam("oneOffHousingId") int oneOffHousingId){
+        return planningPermissionRepository.findByOneOffHousingId(oneOffHousingId);
     }
 
     /**
@@ -59,7 +59,7 @@ public class PlanningPermissionController {
      * @param planningPermission - details of the new application
      * @return ResponseEntity<PlanningPermission>
      */
-    @RequestMapping(value= {"/planningpermissions", "/planningpermissions/"}, method= RequestMethod.POST)
+    @RequestMapping(value= {"/planningpermissions"}, method= RequestMethod.POST)
     ResponseEntity<PlanningPermission>insertHousingApplication(@RequestBody PlanningPermission planningPermission){
         PlanningPermission savedPlanningPermission = planningPermissionRepository.save(planningPermission);
         return new ResponseEntity<PlanningPermission>(savedPlanningPermission, HttpStatus.OK);
@@ -82,7 +82,7 @@ public class PlanningPermissionController {
         existingPlanningPermission.setApplicantLastName(planningPermission.getApplicantLastName());
         existingPlanningPermission.setHouseArea(planningPermission.getHouseArea());
         existingPlanningPermission.setApplicationStatus(planningPermission.getApplicationStatus());
-        existingPlanningPermission.setApplicationTypeId(planningPermission.getApplicationTypeId());
+        existingPlanningPermission.setOneOffHousingId(planningPermission.getOneOffHousingId());
 
         PlanningPermission savedPlanningPermission = planningPermissionRepository.save(existingPlanningPermission);
         return savedPlanningPermission;
